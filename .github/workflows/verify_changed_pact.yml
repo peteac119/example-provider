@@ -2,6 +2,17 @@ name: Verify changed pact
 
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        description: 'Sample Name'
+        required: true
+        default: 'Pete'
+        type: string
+      home:
+        description: 'Sample Home'
+        required: true
+        default: 'Home'
+        type: string
 #  repository_dispatch:
 #    types:
 #      - pact_changed
