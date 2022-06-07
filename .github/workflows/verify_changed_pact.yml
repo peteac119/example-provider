@@ -2,8 +2,6 @@ name: Verify changed pact
 
 on:
   workflow_dispatch:
-    inputs:
-      test: Hello
 #  repository_dispatch:
 #    types:
 #      - pact_changed
