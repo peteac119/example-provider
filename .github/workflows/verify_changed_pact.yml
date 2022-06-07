@@ -3,15 +3,15 @@ name: Verify changed pact
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Sample Name'
+      consumerBranch:
+        description: 'Consumer Branch'
         required: true
-        default: 'Pete'
+        default: 'develop'
         type: string
-      home:
-        description: 'Sample Home'
+      consumerName:
+        description: 'Consumer Name'
         required: true
-        default: 'Home'
+        default: 'consumer'
         type: string
 #  repository_dispatch:
 #    types:
@@ -29,6 +29,10 @@ jobs:
   verify-changed-pact:
     runs-on: ubuntu-latest
     steps:
+      - name: Print Consumer Name
+        run: echo ${{ github.event.inputs.consumerName }}
+      - name: Print Consumer Branch
+        run: echo ${{ github.event.inputs.consumerBranch }}
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2-beta
         with:
