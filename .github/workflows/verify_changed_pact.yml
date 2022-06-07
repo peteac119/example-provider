@@ -1,9 +1,12 @@
 name: Verify changed pact
 
 on:
-  repository_dispatch:
-    types:
-      - pact_changed
+  workflow_dispatch:
+    inputs:
+      test: Hello
+#  repository_dispatch:
+#    types:
+#      - pact_changed
 
 env:
   PACT_BROKER_BASE_URL: https://peteac119.pactflow.io
