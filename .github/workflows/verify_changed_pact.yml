@@ -69,7 +69,7 @@ jobs:
       - name: Checkout repository content
         uses: actions/checkout@v3
         with:
-          ref: $PROVIDER_VERSION
+          ref: ${{ env.PROVIDER_VERSION }}
 
 #      - uses: actions/setup-node@v2-beta
 #        with:
