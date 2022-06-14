@@ -45,7 +45,7 @@ jobs:
       - name: Update provider version if custom value is provided
         if: ${{ github.event.inputs.providerVersion != '' }}
         run: echo "PROVIDER_VERSION=${{ github.event.inputs.providerVersion }}" >> $GITHUB_ENV
-#
+
       - name: Update provider branch version if custom value is provided
         if: ${{ github.event.inputs.providerVersionBranch != '' }}
         run: echo "PROVIDER_VERSION_BRANCH=${{ github.event.inputs.providerVersionBranch }}" >> $GITHUB_ENV
@@ -71,3 +71,13 @@ jobs:
           ref: ${{ env.PROVIDER_VERSION_BRANCH }}
           fetch-depth: 0
       - run: git checkout ${{ env.PROVIDER_VERSION }}
+
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+
+      - name: Install Node dependency
+        run: npm i
+
+      - name: Running test
+        run: make ci_webhook
