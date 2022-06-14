@@ -5,27 +5,27 @@ on:
     inputs:
       pactBrokerURL:
         description: 'Pact broker URL which the verification result will be published'
-        required: true
+        required: false
         default: 'http://localhost:9292'
         type: string
       providerVersion:
         description: 'The version of provider on pact record. Suggested value is ${GIT_SHA}'
-        required: true
+        required: false
         default: ''
         type: string
       providerVersionBranch:
         description: "The value of provider's branch tag on pact record. Suggested value is ${GIT_BRANCH}"
-        required: true
+        required: false
         default: ''
         type: string
       consumerName:
         description: 'The name of consumer on pact record that needs this project to verify. This can be optional'
-        required: true
+        required: false
         default: ''
         type: string
       consumerBranch:
         description: "The value of consumer's branch tag on pact record that needs this project to verify. This can be optional"
-        required: true
+        required: false
         default: ''
         type: string
 
