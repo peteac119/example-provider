@@ -29,7 +29,6 @@ on:
         default: ''
         type: string
 
-# TODO Setup environment variable here.
 env:
   PACT_BROKER_BASE_URL: ${{ github.event.inputs.pactBrokerURL }}
   PACT_BROKER_USERNAME: ${{ secrets.PACT_BROKER_USERNAME }}
@@ -43,13 +42,13 @@ jobs:
   verify-changed-pact:
     runs-on: ubuntu-latest
     steps:
-#      - name: Update provider version if custom value is provided
-#        if: ${{ github.event.inputs.providerVersion != '' }}
-#        run: echo ${{ github.event.inputs.providerVersion }} >> $PROVIDER_VERSION
+      - name: Update provider version if custom value is provided
+        if: ${{ github.event.inputs.providerVersion != '' }}
+        run: PROVIDER_VERSION=${{ github.event.inputs.providerVersion }}
 #
-#      - name: Update provider branch version if custom value is provided
-#        if: ${{ github.event.inputs.providerVersionBranch != '' }}
-#        run: echo ${{ github.event.inputs.providerVersionBranch }} >> $PROVIDER_VERSION_BRANCH
+      - name: Update provider branch version if custom value is provided
+        if: ${{ github.event.inputs.providerVersionBranch != '' }}
+        run: PROVIDER_VERSION_BRANCH=${{ github.event.inputs.providerVersionBranch }}
 
       - name: Print pactBrokerURL
         run: echo $PACT_BROKER_BASE_URL
