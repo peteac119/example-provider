@@ -11,12 +11,12 @@ on:
       providerVersion:
         description: 'The version of provider on pact record. Suggested value is ${GIT_SHA}'
         required: false
-        default: '${{ github.sha }}'
+        default: ''
         type: string
       providerVersionBranch:
         description: "The value of provider's branch tag on pact record. Suggested value is ${GIT_BRANCH}"
         required: false
-        default: '${{ github.ref }}'
+        default: ''
         type: string
       consumerName:
         description: 'The name of consumer on pact record that needs this project to verify. This can be optional'
