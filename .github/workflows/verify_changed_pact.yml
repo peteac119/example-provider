@@ -8,16 +8,16 @@ on:
         required: false
         default: 'http://localhost:9292'
         type: string
-      providerVersion:
-        description: 'The version of provider on pact record. Suggested value is ${GIT_SHA}'
-        required: false
-        default: ${{ github.sha }}
-        type: string
-      providerVersionBranch:
-        description: "The value of provider's branch tag on pact record. Suggested value is ${GIT_BRANCH}"
-        required: false
-        default: ${{ github.ref }}
-        type: string
+#      providerVersion:
+#        description: 'The version of provider on pact record. Suggested value is ${GIT_SHA}'
+#        required: false
+#        default: ${{ github.sha }}
+#        type: string
+#      providerVersionBranch:
+#        description: "The value of provider's branch tag on pact record. Suggested value is ${GIT_BRANCH}"
+#        required: false
+#        default: ${{ github.ref }}
+#        type: string
       consumerName:
         description: 'The name of consumer on pact record that needs this project to verify. This can be optional'
         required: false
@@ -49,10 +49,12 @@ jobs:
         run: echo ${{ github.event.inputs.pactBrokerURL }}
 
       - name: Print providerVersion
-        run: echo ${{ github.event.inputs.providerVersion }}
+#        run: echo ${{ github.event.inputs.providerVersion }}
+        run: echo ${{ github.sha }}
 
       - name: Print providerVersionBranch
-        run: echo ${{ github.event.inputs.providerVersionBranch }}
+#        run: echo ${{ github.event.inputs.providerVersionBranch }}
+        run: echo ${{ github.ref }}
 
       - name: Print Consumer Name
         run: echo ${{ github.event.inputs.consumerName }}
