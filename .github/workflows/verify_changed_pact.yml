@@ -49,7 +49,7 @@ jobs:
 
       - name: Update provider branch version if custom value is provided
         if: ${{ github.event.inputs.providerVersionBranch != '' }}
-        run: echo ${{ github.event.inputs.providerVersionBranch }} >> PROVIDER_VERSION_BRANCH
+        run: echo ${{ github.event.inputs.providerVersionBranch }} >> $PROVIDER_VERSION_BRANCH
 
       - name: Print pactBrokerURL
         run: echo $PACT_BROKER_BASE_URL
