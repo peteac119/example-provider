@@ -31,8 +31,8 @@ on:
 
 env:
   PACT_BROKER_BASE_URL: ${{ github.event.inputs.pactBrokerURL }}
-  PACT_BROKER_USERNAME: ${{ secrets.PACT_BROKER_USERNAME }}
-  PACT_BROKER_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }}
+#  PACT_BROKER_USERNAME: ${{ secrets.PACT_BROKER_USERNAME }}
+#  PACT_BROKER_PASSWORD: ${{ secrets.PACT_BROKER_PASSWORD }}
   PROVIDER_VERSION: ${{ github.sha }}
   PROVIDER_VERSION_BRANCH: ${{ github.ref }}
   CONSUMER_NAME: ${{ github.event.inputs.consumerName }}
@@ -44,11 +44,11 @@ jobs:
     steps:
       - name: Update provider version if custom value is provided
         if: ${{ github.event.inputs.providerVersion != '' }}
-        run: echo "::add-mask::PROVIDER_VERSION=${{ github.event.inputs.providerVersion }}" >> $GITHUB_ENV
+        run: echo "PROVIDER_VERSION=${{ github.event.inputs.providerVersion }}" >> $GITHUB_ENV
 #
       - name: Update provider branch version if custom value is provided
         if: ${{ github.event.inputs.providerVersionBranch != '' }}
-        run: echo "::add-mask::PROVIDER_VERSION_BRANCH=${{ github.event.inputs.providerVersionBranch }}" >> $GITHUB_ENV
+        run: echo "PROVIDER_VERSION_BRANCH=${{ github.event.inputs.providerVersionBranch }}" >> $GITHUB_ENV
 
       - name: Print pactBrokerURL
         run: echo $PACT_BROKER_BASE_URL
