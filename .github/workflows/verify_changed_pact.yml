@@ -3,16 +3,32 @@ name: Verify changed pact
 on:
   workflow_dispatch:
     inputs:
-      consumerBranch:
-        description: 'Consumer Branch'
-        required: true
-        default: 'develop'
+      pactBrokerURL:
+        description: 'Pact broker URL which the verification result will be published'
+        required: false
+        default: 'http://localhost:9292'
+        type: string
+      providerVersion:
+        description: 'The version of provider on pact record. Suggested value is ${GIT_SHA}'
+        required: false
+        default: ${{ github.sha }}
+        type: string
+      providerVersionBranch:
+        description: "The value of provider's branch tag on pact record. Suggested value is ${GIT_BRANCH}"
+        required: false
+        default: ${{ github.ref }}
         type: string
       consumerName:
-        description: 'Consumer Name'
-        required: true
-        default: 'consumer'
+        description: 'The name of consumer on pact record that needs this project to verify. This can be optional'
+        required: false
+        default: ''
         type: string
+      consumerBranch:
+        description: "The value of consumer's branch tag on pact record that needs this project to verify. This can be optional"
+        required: false
+        default: ''
+        type: string
+
 #  repository_dispatch:
 #    types:
 #      - pact_changed
@@ -29,16 +45,31 @@ jobs:
   verify-changed-pact:
     runs-on: ubuntu-latest
     steps:
+      - name: Print pactBrokerURL
+        run: echo ${{ github.event.inputs.pactBrokerURL }}
+
+      - name: Print providerVersion
+        run: echo ${{ github.event.inputs.providerVersion }}
+
+      - name: Print providerVersionBranch
+        run: echo ${{ github.event.inputs.providerVersionBranch }}
+
       - name: Print Consumer Name
         run: echo ${{ github.event.inputs.consumerName }}
+
       - name: Print Consumer Branch
         run: echo ${{ github.event.inputs.consumerBranch }}
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+
+      - name: Checkout repository content
+        uses: actions/checkout@v3
         with:
-          node-version: '12'
-      - run: docker pull pactfoundation/pact-cli:latest
-      - name: Install
-        run: npm i
-      - name: Build
-        run: GIT_BRANCH=${GITHUB_REF:11} make ci_webhook
+          ref: ${{ github.event.inputs.providerVersion }}
+
+#      - uses: actions/setup-node@v2-beta
+#        with:
+#          node-version: '12'
+#      - run: docker pull pactfoundation/pact-cli:latest
+#      - name: Install
+#        run: npm i
+#      - name: Build
+#        run: GIT_BRANCH=${GITHUB_REF:11} make ci_webhook
