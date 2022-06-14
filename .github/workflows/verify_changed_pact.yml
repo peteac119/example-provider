@@ -44,13 +44,13 @@ jobs:
     steps:
       - name: Update provider version if custom value is provided
         if: ${{ github.event.inputs.providerVersion != '' }}
-        run: echo "::set-env name=PROVIDER_VERSION::$(echo ${{ github.event.inputs.providerVersion }})"
-#        run: PROVIDER_VERSION=${{ github.event.inputs.providerVersion }}
+#        run: echo "::set-env name=PROVIDER_VERSION::$(echo ${{ github.event.inputs.providerVersion }})"
+        run: echo "PROVIDER_VERSION=${{ github.event.inputs.providerVersion }}"
 #
       - name: Update provider branch version if custom value is provided
         if: ${{ github.event.inputs.providerVersionBranch != '' }}
-        run: echo "::set-env name=PROVIDER_VERSION_BRANCH::$(echo ${{ github.event.inputs.providerVersionBranch }})"
-#        run: PROVIDER_VERSION_BRANCH=${{ github.event.inputs.providerVersionBranch }}
+#        run: echo "::set-env name=PROVIDER_VERSION_BRANCH::$(echo ${{ github.event.inputs.providerVersionBranch }})"
+        run: echo "PROVIDER_VERSION_BRANCH=${{ github.event.inputs.providerVersionBranch }}"
 
       - name: Print pactBrokerURL
         run: echo $PACT_BROKER_BASE_URL
