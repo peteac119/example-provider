@@ -44,12 +44,10 @@ jobs:
     steps:
       - name: Update provider version if custom value is provided
         if: ${{ github.event.inputs.providerVersion != '' }}
-#        run: echo "::set-env name=PROVIDER_VERSION::$(echo ${{ github.event.inputs.providerVersion }})"
         run: echo "PROVIDER_VERSION=${{ github.event.inputs.providerVersion }}" >> $GITHUB_ENV
 #
       - name: Update provider branch version if custom value is provided
         if: ${{ github.event.inputs.providerVersionBranch != '' }}
-#        run: echo "::set-env name=PROVIDER_VERSION_BRANCH::$(echo ${{ github.event.inputs.providerVersionBranch }})"
         run: echo "PROVIDER_VERSION_BRANCH=${{ github.event.inputs.providerVersionBranch }}" >> $GITHUB_ENV
 
       - name: Print pactBrokerURL
@@ -70,13 +68,5 @@ jobs:
       - name: Checkout repository content
         uses: actions/checkout@v3
         with:
-          ref: ${{ env.PROVIDER_VERSION }}
-
-#      - uses: actions/setup-node@v2-beta
-#        with:
-#          node-version: '12'
-#      - run: docker pull pactfoundation/pact-cli:latest
-#      - name: Install
-#        run: npm i
-#      - name: Build
-#        run: GIT_BRANCH=${GITHUB_REF:11} make ci_webhook
+          ref: ${{ env.PROVIDER_VERSION_BRANCH }}
+      - run: git checkout ${{ env.PROVIDER_VERSION }}
